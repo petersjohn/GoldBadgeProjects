@@ -32,7 +32,20 @@ namespace Challenge1_Cafe_REPO
         {
             return _menuContent;
         }
-        
+
+        public MenuContent GetMenuContentByItemNumber(int menuNumber)
+        {
+
+            foreach (var item in _menuContent)
+            {
+                if (item.ItemNumber == menuNumber)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         //UPDATE
         //Not implementing Updates at this time
 
@@ -61,18 +74,7 @@ namespace Challenge1_Cafe_REPO
 
         }
 
-        public MenuContent GetMenuContentByItemNumber(int menuNumber)
-        {
-            
-            foreach(var item in _menuContent)
-            {
-                if(item.ItemNumber == menuNumber)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
+        
 
         
 

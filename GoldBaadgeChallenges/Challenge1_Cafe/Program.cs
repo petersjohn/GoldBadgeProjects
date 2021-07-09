@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Challenge1_Cafe;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Challenge1_Cafe_Console
     {
         static void Main(string[] args)
         {
+            ProgramUI ui = new ProgramUI();
+            ui.Start();
         }
     }
 }
