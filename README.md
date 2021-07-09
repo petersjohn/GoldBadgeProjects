@@ -1,6 +1,7 @@
 # GoldBadgeProjects Challenge 1: Komodo Cafe
--create a menu application for the Komodo cafe that will allow the user to 
-    1. Display existing menu items
+### create a menu application for the Komodo cafe that will allow the user to 
+
+    1.  Display existing menu items
     2.  Add new menu items
     3.  Delete menu items
 
