@@ -1,8 +1,8 @@
 # GoldBadgeProjects Challenge 1: Komodo Cafe
 -create a menu application for the Komodo cafe that will allow the user to 
-    1 display existing menu items
-    2 Add new menu items
-    3 Delete menu items
+    1. Display existing menu items
+    2.  Add new menu items
+    3.  Delete menu items
 
 ## Main Object
 - The main object that holds each menu item is the MenuContent Class.
@@ -14,9 +14,12 @@
 - ItemPrice (decimal)
 - ItemIngredients(List)
 
-Repo Methods
+Repo Methods CRUD
 
-create, add, delete (update is not implemented at this time)
+- create
+- add
+- delete 
+- (update is not implemented at this time)
 
 
 
