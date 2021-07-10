@@ -27,6 +27,6 @@
 
 ### Project Status
 
-7/9/21: Achieved minimum viable product
-7/10/21: Repo Unit testing complete
+-- 7/9/21: Achieved minimum viable product
+-- 7/10/21: Repo Unit testing complete
 
