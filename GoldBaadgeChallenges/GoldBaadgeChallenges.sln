@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge1_Cafe_REPO", "Cha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge1_Cafe_POCO", "Challenge1_Cafe_POCOs\Challenge1_Cafe_POCO.csproj", "{F126C15F-F386-4E14-84CA-6F4A3942B76F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge1_Repo_Unit_Test", "Challenge1_Repo_Unit_Test\Challenge1_Repo_Unit_Test.csproj", "{FC193907-29F8-4B7F-A894-33E1575AAA34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F126C15F-F386-4E14-84CA-6F4A3942B76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F126C15F-F386-4E14-84CA-6F4A3942B76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F126C15F-F386-4E14-84CA-6F4A3942B76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC193907-29F8-4B7F-A894-33E1575AAA34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC193907-29F8-4B7F-A894-33E1575AAA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC193907-29F8-4B7F-A894-33E1575AAA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC193907-29F8-4B7F-A894-33E1575AAA34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

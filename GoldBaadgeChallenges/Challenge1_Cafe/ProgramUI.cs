@@ -224,7 +224,7 @@ namespace Challenge1_Cafe
         {
             //public MenuContent(string itemName, int itemNumber, string itemDescription, decimal itemPrice, IList<string> itemIngredients)
             MenuContent veggieWrap =
-                new MenuContent("Veggie Wrap", 1, "A delightful assortment of fresh vegetables on a base of guacamole", 7.95m, new List<string> { "spinach wrap", "guac", "iceberg lettuce", "green pepper", "diced tomato", "sweet onion", "black olive", "roasted corn", "southwest sauce" }); ;
+                new MenuContent("Veggie Wrap", 1, "A delightful assortment of fresh vegetables on a base of guacamole", 7.95m, new List<string> { "spinach wrap", "guac", "iceberg lettuce", "green pepper", "diced tomato", "sweet onion", "black olive", "roasted corn", "southwest sauce" }); 
             _repo.AddItemsToMenu(veggieWrap);
         }
     }
