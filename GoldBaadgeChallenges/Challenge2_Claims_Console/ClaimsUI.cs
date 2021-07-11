@@ -90,12 +90,24 @@ namespace Challenge2_Claims_Console
             }
 
             Console.Clear();
-            if(claims != null)
+            if (claims != null)
             {
-                Console.WriteLine("ClaimID" + "\t" + "Claim Type" + "\t" + "Description " +"\t" + "IsValid");
+                //Console.WriteLine("ClaimID" + "\t" + "Claim Type" + "\t" + "Description" +"\t" + "IsValid");
+                Console.WriteLine("{0,-10}{1,-15}{2,-25}{3,-10}", "ClaimID", "Claim Type", "Description", "IsValid");
+                int listSize = claims.Count;
+                int idx = 0;
                 foreach (var item in claims)
                 {
-                    Console.WriteLine(item.ClaimID + "\t"+ item.TypeOfClaim + "\t" + "\t" + item.Description + "\t" + "\t" + item.IsValid);
+                    idx++;
+                    if (idx == listSize)
+                    {
+                        Console.WriteLine("{0,-10}{1,-15}{2,-25}{3,-10}\n", (item.ClaimID), (item.TypeOfClaim), (item.Description), (item.IsValid));
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0,-10}{1,-15}{2,-25}{3,-10}", (item.ClaimID), (item.TypeOfClaim), (item.Description), (item.IsValid));
+                    }
+
 
                 }
             }
