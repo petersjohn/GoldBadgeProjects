@@ -80,14 +80,22 @@ namespace Challenge2_Claims_Console
 
         private void DisplayQueue()
         {
-            List<Claims> claims = _repo.GetClaimsInQueue();
+            List<Claims> claims = new List<Claims>();
+            List<Claims> existingClaims = _repo.ReturnAllClaims();
+            int[] qArray = GetQueueArray();
+
+            for (int idx = 0; idx < qArray.Length; idx++)
+            {
+                claims.Add(existingClaims.Find(claim => claim.ClaimID == qArray[idx]));
+            }
+
             Console.Clear();
             if(claims != null)
             {
-                Console.WriteLine("ClaimID:" + "\t" + "Claim Type:" + "\t" + "Description: ");
+                Console.WriteLine("ClaimID" + "\t" + "Claim Type" + "\t" + "Description " +"\t" + "IsValid");
                 foreach (var item in claims)
                 {
-                    Console.WriteLine(item.ClaimID + "\t"+ item.TypeOfClaim + "\t" + item.Description );
+                    Console.WriteLine(item.ClaimID + "\t"+ item.TypeOfClaim + "\t" + "\t" + item.Description + "\t" + "\t" + item.IsValid);
 
                 }
             }
@@ -114,6 +122,15 @@ namespace Challenge2_Claims_Console
             Console.ReadKey();
             RunMenu();
         }
+
+        public int[] GetQueueArray()
+        {
+            int[] qArray = (_repo.ReturnQueue()).ToArray();
+            return qArray;
+        }
+
+        
+
 
 
     }

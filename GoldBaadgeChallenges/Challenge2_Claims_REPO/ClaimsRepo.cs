@@ -45,19 +45,47 @@ namespace Challenge2_Claims_REPO
         }
 
         //Read
-        public List<Claims> GetClaimsInQueue() 
+        
+        public List<Claims> ReturnAllClaims()
         {
-            List<Claims> claimList = new List<Claims>();
+            return _claims;
+        }
 
-            int[] qArray = _claimQueue.ToArray();
-            for (int idx = 0; idx < qArray.Length; idx++)
+        public Queue<int> ReturnQueue()
+        {
+            return _claimQueue;
+        }
+
+        //Delete
+        public int RemoveFromQueue()
+        {
+            int sizeBefore = _claimQueue.Count();
+            int removedItem = _claimQueue.Dequeue();
+            int sizeAfter = _claimQueue.Count();
+
+            if((sizeAfter > sizeBefore) && (removedItem > 0))
             {
-                claimList.Add(_claims.Find(claim => claim.ClaimID == qArray[idx]));
+                return removedItem;
             }
-            
-            return claimList;
-            
+            return 0;
+        }
 
+        public bool RemoveFromList(int listItem)
+        {
+            int sizeBefore = _claims.Count();
+            foreach (var claim in _claims)
+            {
+                if(claim.ClaimID == listItem)
+                {
+                    _claims.Remove(claim);
+                }
+            }
+            int sizeAfter = _claims.Count();
+            if(sizeAfter < sizeBefore)
+            {
+                return true;
+            }
+            return false;
         }
 
 
