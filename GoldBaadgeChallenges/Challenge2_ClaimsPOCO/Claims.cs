@@ -15,6 +15,7 @@ namespace Challenge2_Claims_POCO
             ClaimID = claimID;
             TypeOfClaim = typeOfClaim;
             Description = description;
+            ClaimAmount = claimAmount;
             DateOfAccident = dateOfAccident;
             DateOfClaim = dateOfClaim;
             
@@ -33,7 +34,7 @@ namespace Challenge2_Claims_POCO
         {
             get
             {
-                int daysSinceIncident = (DateOfClaim.Day - DateOfAccident.Day);
+                int daysSinceIncident = (DateOfClaim.Date - DateOfAccident.Date).Days;
                 if(daysSinceIncident > 30)
                 {
                     return false;
