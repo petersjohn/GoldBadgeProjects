@@ -44,6 +44,7 @@ For #2, when a claims agent needs to deal with an item they see the next item in
 ### Project Status
 
 - 7/10/21 Basic CRUD Complete, REPO completed, UI started to test displaying the list/queue of claims
-- 7/11/21 minimum viable product!, Still need unit testing
+- 7/11/21 minimum viable product! Still need unit testing
+- 7/11/21 unit testing complete for mvp
 
 
