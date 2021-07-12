@@ -10,15 +10,15 @@ namespace Challenge2_Claims_REPO
     public class ClaimsRepo
     {
         
-        private readonly List<Claims> _claims = new List<Claims>();
+        public readonly List<Claims> claimList = new List<Claims>();
         public Queue<int> _claimQueue = new Queue<int>();
         //CREATE
 
         public bool AddClaimToList(Claims claim)
         {
-            int sizeOfListBefore = _claims.Count();
-            _claims.Add(claim);
-            int sizeOfListAfter = _claims.Count();
+            int sizeOfListBefore = claimList.Count();
+            claimList.Add(claim);
+            int sizeOfListAfter = claimList.Count();
             if(sizeOfListAfter > sizeOfListBefore)
             {
                 return true;
@@ -47,7 +47,7 @@ namespace Challenge2_Claims_REPO
 
         public List<Claims> ReturnAllClaims()
         {
-            return _claims;
+            return claimList;
         }
 
         public Queue<int> ReturnQueue()
@@ -59,8 +59,8 @@ namespace Challenge2_Claims_REPO
 
         public bool RemoveClaimFromListByID(int listItem)
         {
-            int sizeBefore = _claims.Count();
-            foreach (var claim in _claims)
+            int sizeBefore = claimList.Count();
+            foreach (var claim in claimList)
             {
                 if(claim.ClaimID == listItem)
                 {
@@ -72,7 +72,7 @@ namespace Challenge2_Claims_REPO
 
         public bool DeleteClaim(Claims claim)
         {
-            return _claims.Remove(claim);
+            return claimList.Remove(claim);
         }
 
         public bool RemoveFromQueue()
@@ -91,9 +91,9 @@ namespace Challenge2_Claims_REPO
         public int CreateNewClaimID()
         {
 
-            if(_claims.Count > 0)
+            if(claimList.Count > 0)
             {
-                var maxID = (_claims.Max(x => x.ClaimID)) + 1;
+                var maxID = (claimList.Max(x => x.ClaimID)) + 1;//Thanks, Google!
                 return maxID;
             }
             else

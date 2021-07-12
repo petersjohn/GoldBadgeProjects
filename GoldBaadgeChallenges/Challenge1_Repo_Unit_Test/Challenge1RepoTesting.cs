@@ -11,13 +11,14 @@ namespace Challenge1_Repo_Unit_Test
     {
         private MenuRepo _repo;
         private MenuContent _content;
+        
 
         [TestInitialize]
         public void ArrangeTests()
         {
             _repo = new MenuRepo();
             _content = new MenuContent("Veggie Wrap", 1, "A delightful assortment of fresh vegetables on a base of guacamole", 7.95m, new List<string> { "spinach wrap", "guac", "iceberg lettuce", "green pepper", "diced tomato", "sweet onion", "black olive", "roasted corn", "southwest sauce" });
-            _repo.AddItemsToMenu(_content);
+            _repo.AddItemsToMenu(_content); 
             
         }
         
