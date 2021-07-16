@@ -9,7 +9,7 @@ namespace Challenge3_Badge_REPO
     public static class Doors
     {
 
-        public static List<string> _doorList;
+        public readonly static List<string> _doorList;
 
          static Doors()
         {
