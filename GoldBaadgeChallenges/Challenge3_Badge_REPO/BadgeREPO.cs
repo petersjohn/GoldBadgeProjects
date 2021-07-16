@@ -10,12 +10,8 @@ namespace Challenge3_Badge_REPO
 {
     public class BadgeREPO
     {
-
         public readonly List<Badges> _badges = new List<Badges>();
-        public readonly IDictionary<int, List<DoorList>> _doorAssignments = new Dictionary<int, List<DoorList>>();
-
-        //Create
-
+        public readonly IDictionary<int, Badges> badgeDictionary = new Dictionary<int, Badges>();
 
         public bool AddNewBadgeToList(Badges badge)
         {
@@ -23,7 +19,7 @@ namespace Challenge3_Badge_REPO
             _badges.Add(badge);
             int sizeAfter = _badges.Count();
 
-            if (sizeAfter == (sizeAfter + 1))
+            if (sizeAfter == (sizeBefore + 1))
             {
                 return true;
             }
@@ -32,23 +28,18 @@ namespace Challenge3_Badge_REPO
 
         }
 
-        public bool AddBadgeToDictionary(int badgeID, List<DoorList> doors)
+        public bool AddBadgeToDictionary(int badgeID, Badges badge)
         {
-            //check to see if badge is already in the dictionary
-            if (_doorAssignments.ContainsKey(badgeID))
+            if (CheckDictionary(badgeID) == false)
             {
-                return false;
-            }
-            else
-            {
-                _doorAssignments.Add(badgeID, doors);
-                if (_doorAssignments.ContainsKey(badgeID))
-                {
-                    return true;
-                }
+                badgeDictionary.Add(badgeID, badge);
+                return true;
             }
             return false;
+
         }
+
+
 
         //Read
 
@@ -57,48 +48,14 @@ namespace Challenge3_Badge_REPO
             return _badges;
         }
 
-       /* public string GetStringDoorsFromDictionary(int badgeID)
+
+        public Dictionary<int, string> ReturnDictionary()
         {
-            List<DoorList> _doors = _doorAssignments[badgeID];
-            if (_doorAssignments.ContainsKey(badgeID))
-            {
-                string doorStr = "";
-                foreach (DoorList doors in _doors)
-                {
 
-                    doorStr = doorStr + ", " + doors;
-
-                }
-                return doorStr;
-            }
-            return null;
-        }*/
-
-        public Dictionary<int, DoorList> ReturnDicitionary()
-        {
-            
-            return (Dictionary<int, DoorList>)_doorAssignments;
+            return (Dictionary<int, string>)badgeDictionary;
         }
 
-        public List<DoorList> GetListOfDoorsByKey(int badgeID)
-        {
-            if (_doorAssignments.ContainsKey(badgeID))
-            {
-                List<DoorList> _doors = _doorAssignments[badgeID];
 
-                if (_doors != null)
-                {
-                    return _doors;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            return null;
-
-        }
 
         public Badges GetBadgeByBadgeID(int badgeID)
         {
@@ -114,33 +71,31 @@ namespace Challenge3_Badge_REPO
         }
 
         //Update
-        public void UpdateBadgeName(int badgeID, string fName, string lName)
-        {
-            Badges badge = GetBadgeByBadgeID(badgeID);
-            badge.FirstName = fName;
-            badge.LastName = lName;
-        }
 
-        public void UpdateDoorBadgeDoors(int badgeID, List<DoorList> doors)
+
+        public void UpdateDoorBadgeDoors(int badgeID, List<string> doors)
         {
             Badges badge = GetBadgeByBadgeID(badgeID);
             badge.Doors = doors;
 
         }
 
-        public bool UpdateBadgeDic(int badgeID, List<DoorList> doors)
+        public bool UpdateBadgeDic(int badgeID, Badges badge)
         {
-            if (_doorAssignments.ContainsKey(badgeID))
+            if (CheckDictionary(badgeID) == true)
             {
-                _doorAssignments[badgeID] = doors;
+                badgeDictionary[badgeID] = badge;
                 return true;
             }
             return false;
         }
 
-        public void RemoveAllDoorsFromDictKey(int badgeID)
+        public void ClearBadgeValue(int badgeID)
         {
-            _doorAssignments[badgeID] = null;
+            if (CheckDictionary(badgeID) == true)
+            {
+                badgeDictionary[badgeID] = null;
+            }
         }
 
         public void RemoveAllDoorsFromBadge(int badgeID)
@@ -149,9 +104,15 @@ namespace Challenge3_Badge_REPO
             badge.Doors = null;
 
         }
-        
+        //helper methods
+        private bool CheckDictionary(int badgeID)
+        {
+            if (badgeDictionary.ContainsKey(badgeID))
+            {
+                return true;
+            }
+            return false;
+        }
 
-
-       
     }
 }

@@ -59,7 +59,7 @@ namespace Challenge2_Claims_REPO
 
         public bool RemoveClaimFromListByID(int listItem)
         {
-            int sizeBefore = claimList.Count();
+            
             foreach (var claim in claimList)
             {
                 if(claim.ClaimID == listItem)

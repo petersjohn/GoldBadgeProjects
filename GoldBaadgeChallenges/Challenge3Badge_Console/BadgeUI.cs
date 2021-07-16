@@ -10,11 +10,11 @@ namespace Challenge3Badge_Console
 {
     class BadgeUI
     {
-
         bool isRunning = true;
 
         private readonly BadgeREPO _repo = new BadgeREPO();
-        private  IDictionary<int, List<DoorList>> repoDictionary = new Dictionary<int, List<DoorList>>();
+        
+        
 
         public void Start()
         {
@@ -38,26 +38,26 @@ namespace Challenge3Badge_Console
         {
             Console.Clear();
             Console.WriteLine("Hello Security Admin, What would you like to do? \n" +
-                "1) See All Badges in List \n" +
-                "2) See All Badges in Dictionary \n" +
-                "3) Exit the Claim Queue System");
+                "1) Create a new Badge \n" +
+                "2) Update an existing badge \n" +
+                "3) Exit the Badge Admin System");
 
 
             string userInput = Console.ReadLine();
             return userInput;
         }
-
         private void OpenMenuItem(string userInput)
         {
             Console.Clear();
             switch (userInput)
             {
+
                 case "1":
-                    DisplayAllBadges();
+                    CreateNewBadge();
                     break;
-                case "2":
-                    DisplayMyDic();
-                    break;
+                /*case "2":
+                    UpdateBadge();
+                    break;*/
                 case "3":
                     isRunning = false;
                     break;
@@ -70,56 +70,160 @@ namespace Challenge3Badge_Console
             }
         }
 
-        private void DisplayMyDic()//tee hee
+        private void CreateNewBadge()
+        {
+            List<string> doorList = new List<string>();
+            int badgeID = GetValidIntegers();
+            if (badgeID < 1)
+            {
+                IntegerError();
+            }
+            DisplayDoors();
+            doorList = BuildDoorList();
+            Badges badge = new Badges(badgeID, doorList);
+            if(_repo.AddBadgeToDictionary(badgeID, badge) && _repo.AddNewBadgeToList(badge))
+            {
+                Console.WriteLine("Badge was succesfully added");
+                PressAnyKeyToContinue();
+            }
+            else
+            {
+                Console.WriteLine("Badge creation Failed.");
+                PressAnyKeyToContinue();
+            }
+
+
+        }
+
+        
+
+        public void IntegerError()
+        {
+            Console.WriteLine("BadgeID Must be a positive integer greater than 0");
+            PressAnyKeyToContinue();
+        }
+        private int GetValidIntegers()
+        {
+            Console.WriteLine("Enter the Badge ID (ID must be greater than 0): ");
+            string input = Console.ReadLine();
+            int retVal = ValidateIntInput(input);
+            return retVal;
+
+        }
+
+        private void DisplayDoors()
         {
             Console.Clear();
-            repoDictionary = _repo._doorAssignments;
-            string displayStr;
-            foreach (var item in repoDictionary)
+            Console.WriteLine("Avalable Doors: ");
+            Doors.DisplayDoorList();
+        }
+
+        public List<string> BuildDoorList()
+        {
+            List <string> retList = new List <string>();
+            bool keepGoing = true;
+            int idx = 0;
+            string doorValue;
+            while (keepGoing)
             {
-                displayStr = "";
-                displayStr = ($"BadgeID: {item.Key} Door Access: ");
-                int cnt = 0;
-                foreach (var door in item.Value)
-                {   
-                    cnt++;
-                    if(cnt > 1)
+                idx++;
+                if (idx == 1)
+                {
+                    doorValue = DoorPrompt();
+                    if (ValidateAgainstStaticList(doorValue))
                     {
-                        displayStr = displayStr + $", {door}";
+                        retList.Add(doorValue);
                     }
                     else
                     {
-                        displayStr = displayStr + $"{door}";
+                        GenericError();
                     }
-                    
                 }
-                Console.WriteLine(displayStr);
+                else
+                {
+                    if (AddContinue())
+                    {
+                        doorValue = DoorPrompt();
+                        if (!ValidateAgainstStaticList(doorValue) || !IsDoorInList(doorValue, retList))
+                        {
+                            GenericError();
+                            keepGoing = false;
+                        }
+                        else
+                        {
+                            retList.Add(doorValue);
+                        }
+       
+                    }
+                    else
+                    {
+                        keepGoing = false;
+                    }
+}
             }
-            
-            PressAnyKeyToContinue();
+            return retList;
         }
 
-        private void DisplayAllBadges()
+        private string DoorPrompt()
         {
-            Console.Clear();
-            List<Badges> listOfBadges = _repo.GetAllBadgesFromList();
-            foreach(var badge in listOfBadges)
-            {
-                DisplayContent(badge);
-            }
-            PressAnyKeyToContinue();
+            Console.WriteLine("Enter the door name: ");
+            string input = Console.ReadLine().ToUpper();
+            return input;
         }
 
-        private void DisplayContent(Badges badge)
+
+
+        public int ValidateIntInput(string value)
         {
+            int retVal;
 
-            Console.WriteLine($"BadgeID: {badge.BadgeID} \n");
-            foreach(var item in badge.Doors)
+            if (int.TryParse(value, out retVal))
             {
-                Console.WriteLine($"Door Access: {item} \n");
+                return retVal;
             }
+            return 0;
 
-            
+        }
+
+        public bool ValidateAgainstStaticList(string value)
+        {
+            if (Doors._doorList.Contains(value))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsDoorInList(string doorValue, List<string> list)
+        {
+            if (list.Contains(doorValue))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool AddContinue()
+        {
+            Console.WriteLine("Would you like to add another (y/n)");
+            string userInput = Console.ReadLine().ToLower();
+
+            switch (userInput)
+            {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+                default :
+                    GenericError();
+                    return false;
+            }
+        }
+
+        private void GenericError()
+        {
+            Console.WriteLine("Error in Input.");
+            PressAnyKeyToContinue();
         }
 
         private void PressAnyKeyToContinue()
@@ -128,26 +232,25 @@ namespace Challenge3Badge_Console
             Console.ReadKey();
             RunMenu();
         }
-        private void CreateStartContent()  //public Badges(int badgeID,  List<string> doors)
-        {   
-           
-            List<DoorList> _badge1 = new List<DoorList>();
-            _badge1.Add(DoorList.A1);
-            _badge1.Add(DoorList.A2);
-            _badge1.Add(DoorList.A3);
-            _badge1.Add(DoorList.B2);
-            Badges badge1 = new Badges(1234, _badge1);
-            _repo.AddNewBadgeToList(badge1);
-            _repo.AddBadgeToDictionary(badge1.BadgeID, _badge1);
 
-            List<DoorList> _badge2 = new List<DoorList>();
-            _badge2.Add(DoorList.A3);
-            _badge2.Add(DoorList.B1);
-            _badge2.Add(DoorList.B2);
-            _badge2.Add(DoorList.B5);
-            Badges badge2 = new Badges(2234, _badge2);
-            _repo.AddNewBadgeToList(badge2);
-            _repo.AddBadgeToDictionary(badge2.BadgeID, _badge2);
+
+
+        private void CreateStartContent()
+        {
+            Doors._doorList.Add("A1");
+            Doors._doorList.Add("A2");
+            Doors._doorList.Add("A3");
+            Doors._doorList.Add("A4");
+            Doors._doorList.Add("A5"); 
+            Doors._doorList.Add("B1");
+            Doors._doorList.Add("B2");
+            Doors._doorList.Add("B3");
+            Doors._doorList.Add("B4");
+            Doors._doorList.Add("B5");
+            
+                
+
         }
+
     }
 }
