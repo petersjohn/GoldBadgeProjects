@@ -70,7 +70,11 @@ namespace Challenge3_Badge_REPO
             return null;
         }
 
-      
+        public List <string> GetDoorListByBadgeID(int badgeID)
+        {
+            Badges badge = GetBadgeByBadgeID(badgeID);
+            return badge.Doors;
+        }
 
         //Update
 
